@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Demo: TODO</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="icon" href="{{ url_for('static', filename='img/cs.ico') }}" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
+      crossorigin="anonymous"
+    />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.css"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='styles/custom.css') }}"
+    />
+  </head>
+
+  <body>
+<div style="text-align: center">
+  <h3>Danh sách công việc</h3>
+  <div  style="display: flex">
+    <input autofocus
+  id="task"
+  type="text"
+  class="form-control"
+  placeholder="nhập công việc"
+  aria-label="task-name"
+  aria-describedby="basic-addon1"
+/>
+ <button
+onclick="addtodo()"
+id="submit-task"
+type="button"
+class="btn btn-primary"
+>
+Thêm công việc
+</button></div>
+  
+</div>
+</div>
+    <!-- <div class="container"> -->
+      <!-- <div> -->
+        <!-- <input type="search" id="searchTask" /> -->
+        <!-- <button onclick="search()">search</button> -->
+        <!-- <button onclick="sapxep()">sắp xếp</button> -->
+      <!-- </div> -->
+      <!-- Button trigger modal -->
+      <div style="text-align: right">
+        <!-- <button
+          type="button"
+          class="btn btn-outline-info btn-sm"
+          data-bs-toggle="modal"
+          data-bs-target="#task-modal"
+          data-source="New Task"
+        >
+          Add Task
+        </button> -->
+      </div>
+
+      <div
+        class="modal fade"
+        id="task-modal"
+        tabindex="-1"
+        aria-labelledby="Label"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="Label">Add a task</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="task-form-display"
+                  >Task</span
+                >
+                <input
+                  id="task"
+                  type="text"
+                  class="form-control"
+                  placeholder="task chính"
+                  aria-label="task-name"
+                  aria-describedby="basic-addon1"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                onclick="addtodo()"
+                id="submit-task"
+                type="button"
+                class="btn btn-primary"
+              >
+                Save changes
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="modal fade"
+        id="task-modal1"
+        tabindex="-1"
+        aria-labelledby="Label"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="Label">Edit a task</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="input-group mb-3">
+                <span class="input-group-text" id="task-form-display"
+                  >Task</span
+                >
+                <input
+                  id="task-edit"
+                  type="text"
+                  class="form-control"
+                  placeholder="task chính"
+                  aria-label="task-name"
+                  aria-describedby="basic-addon1"
+                />
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                Close
+              </button>
+              <button
+                onclick="updateTask(id)"
+                id="submit-task"
+                type="button"
+                class="btn btn-primary"
+              >
+                Save Edit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--Todo Table-->
+    <div class="container table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="task-id">#</th>
+            <th class="task">Task Name</th>
+            <th class="update">Edit</th>
+            <th class="update">Remove</th>
+          </tr>
+        </thead>
+
+        <tbody id="render">
+          <tr>
+            <td><img src="	https://t4.ftcdn.net/jpg/05/86/21/03/360_F_586210337_WOGOw0l7raEB8F61Muc4hWbvVcyQdk9Z.jpg" alt=""></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">
+          <small>Creat by Tuan Truong JS23</small>
+        </p>
+      </div>
+    </footer>
+  </body>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
+    crossorigin="anonymous"
+  ></script>
+  <!-- <script src="{{ url_for('static', filename='script/modal.js') }}"></script> -->
+  <script src="./dist/index.js"></script>
+</html>
